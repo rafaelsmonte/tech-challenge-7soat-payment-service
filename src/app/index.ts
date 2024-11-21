@@ -13,7 +13,7 @@ import { PaymentError } from 'src/errors/payment.error';
 export class PaymentApp {
   constructor(
     private database: IDatabase,
-    private payment: IExternalPayment,
+    private externalPayment: IExternalPayment,
     private messaging: IMessaging,
   ) {}
 
@@ -43,11 +43,50 @@ export class PaymentApp {
     app.use('/docs', swaggerUi.serve, swaggerUi.setup(options));
 
     // Payment endpoints
-    // app.get();
+    app.get('/payment', async (request: Request, response: Response) => {
+      await PaymentController.findAll(this.database)
+        .then((payments) => {
+          response
+            .setHeader('Content-type', 'application/json')
+            .status(200)
+            .send(payments);
+        })
+        .catch((error) => this.handleError(error, response));
+    });
+
+    app.get('/payment/:id', async (request: Request, response: Response) => {
+      const id = Number(request.params.id);
+      await PaymentController.findById(this.database, id)
+        .then((payment) => {
+          response
+            .setHeader('Content-type', 'application/json')
+            .status(200)
+            .send(payment);
+        })
+        .catch((error) => this.handleError(error, response));
+    });
+
+    app.post('/payment', async (request: Request, response: Response) => {
+      const { orderId, price } = request.body;
+      await PaymentController.create(
+        this.database,
+        this.externalPayment,
+        orderId,
+        price,
+      )
+        .then((payment) => {
+          response
+            .setHeader('Content-type', 'application/json')
+            .status(200)
+            .send(payment);
+        })
+        .catch((error) => this.handleError(error, response));
+    });
 
     // Mercado Pago Webhook
+    // TODO qual endpoint?
     app.post(
-      '/payment',
+      '/payment/update-status',
       async (req: Request, res: Response, next: NextFunction) => {
         const { query } = req;
         const dataID = query['data.id'] as string;
@@ -112,7 +151,7 @@ export class PaymentApp {
 
         await PaymentController.updateStatusOnPaymentReceived(
           this.database,
-          this.payment,
+          this.externalPayment,
           this.messaging,
           paymentId,
         )
