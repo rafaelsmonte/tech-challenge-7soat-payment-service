@@ -8,11 +8,11 @@ export class SNSMessaging implements IMessaging {
   constructor() {
     if (process.env.ENVIRONMENT === 'DEVELOPMENT') {
       this.snsClient = new SNS({
-        region: process.env.AWS_REGION,
+        region: process.env.AWS_DEFAULT_REGION,
         endpoint: 'http://localstack:4566',
       });
     } else {
-      this.snsClient = new SNS({ region: process.env.AWS_REGION });
+      this.snsClient = new SNS({ region: process.env.AWS_DEFAULT_REGION });
     }
   }
 
@@ -23,6 +23,11 @@ export class SNSMessaging implements IMessaging {
       MessageGroupId: message.type,
     };
 
-    await this.snsClient.publish(snsMessage).promise();
+    try {
+      await this.snsClient.publish(snsMessage).promise();
+    } catch (error) {
+      console.log('error sending message: ' + JSON.stringify(error));
+      // TODO throw messaging exception
+    }
   }
 }

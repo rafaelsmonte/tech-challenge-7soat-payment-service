@@ -30,7 +30,6 @@ export class PaymentUseCases {
     orderId: number,
     price: number,
   ): Promise<Payment> {
-    // TODO o ExternalPaymentGateway deve existir? ou devemos injetar o MercadoPago diretamente no PaymentGateway, tornando isso transparente para o UseCase?
     const newExternalPayment = await externalPaymentGateway.create(
       ExternalPayment.new(price),
     );
@@ -55,7 +54,6 @@ export class PaymentUseCases {
     messagingGateway: IMessagingGateway,
     paymentId: number,
   ): Promise<void> {
-    // TODO o MessagingGateway deve existir? ou devemos injetar o SNSMessaging diretamente no PaymentGateway, tornando isso transparente para o UseCase?
     const payment = await paymentGateway.findById(paymentId);
 
     if (!payment) throw new PaymentNotFoundError('Payment not found');
