@@ -1,0 +1,29 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Payment {
+  id              Int           @id @default(autoincrement())
+  externalId      BigInt
+  createdAt       DateTime      @default(now()) @db.Timestamptz(3)
+  updatedAt       DateTime      @updatedAt @db.Timestamptz(3)
+  orderId         Int
+  price           Decimal       @db.Decimal(10, 2)
+  pixQrCode       String
+  pixQrCodeBase64 String
+  status          PaymentStatus @default(PENDING)
+
+  @@map("payments")
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAIL
+}

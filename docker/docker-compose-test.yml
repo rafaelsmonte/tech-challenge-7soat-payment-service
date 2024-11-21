@@ -1,0 +1,51 @@
+#==============================================================================
+# Requirements
+# * Docker installed
+# * docker-compose installed
+#----------------------------------------------------------------------
+# Use
+# UID=${UID} GID=${GID} docker-compose -f docker-compose-dev.yml up -d
+#----------------------------------------------------------------------
+version: '3.8'
+#----------------------------------------------------------------------
+# Networks
+#----------------------------------------------------------------------
+networks:
+  tech-challenge-payment-net-test:
+    driver: bridge
+#----------------------------------------------------------------------
+# Volumes
+#----------------------------------------------------------------------
+volumes:
+  tech-challenge-payment-db-data-test: {}
+#----------------------------------------------------------------------
+# Services:
+#----------------------------------------------------------------------
+services:
+  tech-challenge-payment-test:
+    image: node:16-bullseye
+    container_name: tech-challenge-payment-test
+    working_dir: /usr/src/app
+    command: /usr/src/app/docker/docker-run-test.sh
+    user: '${DUID}:${DGID}'
+    volumes:
+      - '..:/usr/src/app:Z'
+    ports:
+      - '3000:3000'
+    networks:
+      - tech-challenge-payment-net-test
+    env_file:
+      - ./test-local.env
+    depends_on:
+      - tech-challenge-payment-db-test
+  tech-challenge-payment-db-test:
+    image: postgres:latest
+    container_name: tech-challenge-payment-db-test
+    ports:
+      - 5433:5432
+    networks:
+      - tech-challenge-payment-net-test
+    env_file:
+      - ./test-local.env
+    volumes:
+      - tech-challenge-payment-db-data-test:/var/lib/postgresql/data
