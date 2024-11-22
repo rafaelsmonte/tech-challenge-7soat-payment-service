@@ -58,4 +58,21 @@ export class MercadoPago implements IExternalPayment {
       throw new PaymentError('Failed to check payment status');
     }
   }
+
+async isPaymentApprovedtest(externalPaymentId: number): Promise<boolean> {
+  try {
+    const client = new MercadoPagoConfig({
+      accessToken: process.env.MERCADO_PAGO_ACCESS_TOKEN || '',
+    });
+    const payment = new MercadoPagoPayment(client);
+
+    const paymentResponse = await payment.get({
+      id: externalPaymentId,
+    });
+
+    return paymentResponse.status === 'approved';
+  } catch (error) {
+    throw new PaymentError('Failed to check payment status');
+  }
+}
 }
