@@ -7,7 +7,6 @@ on:
 jobs:
   sonar:
     name: Sonar
-    continue-on-error: true #remover
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
