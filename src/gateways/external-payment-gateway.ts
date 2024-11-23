@@ -1,6 +1,6 @@
 import { IExternalPayment } from '../interfaces/external-payment.interface';
 import { IExternalPaymentGateway } from '../interfaces/external-payment.gateway.interface';
-import { ExternalPayment } from 'src/entities/external-payment.entity';
+import { ExternalPayment } from '../entities/external-payment.entity';
 
 export class ExternalPaymentGateway implements IExternalPaymentGateway {
   constructor(private externalPaymentMethod: IExternalPayment) {}

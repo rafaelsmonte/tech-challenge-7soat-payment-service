@@ -1,9 +1,9 @@
 import { IMessagingGateway } from '../interfaces/messaging.gateway.interface';
 import { IMessaging } from '../interfaces/messaging.interface';
-import { PaymentMessage } from 'src/types/payment-message.type';
-import { MessageType } from 'src/enum/message-type.enum';
-import { MessageSender } from 'src/enum/message-sender.enum';
-import { MessageTarget } from 'src/enum/message-target.enum';
+import { PaymentMessage } from '../types/payment-message.type';
+import { MessageType } from '../enum/message-type.enum';
+import { MessageSender } from '../enum/message-sender.enum';
+import { MessageTarget } from '../enum/message-target.enum';
 
 export class MessagingGateway implements IMessagingGateway {
   constructor(private messaging: IMessaging) {}

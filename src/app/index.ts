@@ -5,10 +5,10 @@ import { IDatabase } from '../interfaces/database.interface';
 import { IExternalPayment } from '../interfaces/external-payment.interface';
 import { IMessaging } from '../interfaces/messaging.interface';
 import { createHmac } from 'crypto';
-import { InvalidPaymentStatusError } from 'src/errors/invalid-payment-status.error';
-import { IncorrectPaymentActionError } from 'src/errors/incorrect-payment-action.error';
-import { DatabaseError } from 'src/errors/database.error';
-import { PaymentError } from 'src/errors/payment.error';
+import { InvalidPaymentStatusError } from '../errors/invalid-payment-status.error';
+import { IncorrectPaymentActionError } from '../errors/incorrect-payment-action.error';
+import { DatabaseError } from '../errors/database.error';
+import { PaymentError } from '../errors/payment.error';
 
 export class PaymentApp {
   constructor(

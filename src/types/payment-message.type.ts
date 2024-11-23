@@ -1,6 +1,6 @@
-import { MessageSender } from 'src/enum/message-sender.enum';
-import { MessageTarget } from 'src/enum/message-target.enum';
-import { MessageType } from 'src/enum/message-type.enum';
+import { MessageSender } from '../enum/message-sender.enum';
+import { MessageTarget } from '../enum/message-target.enum';
+import { MessageType } from '../enum/message-type.enum';
 
 export type PaymentMessage = {
   type: MessageType;

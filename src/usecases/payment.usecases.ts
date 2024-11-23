@@ -5,7 +5,7 @@ import { PaymentNotFoundError } from '../errors/payment-not-found.error';
 import { IMessagingGateway } from '../interfaces/messaging.gateway.interface';
 import { IPaymentGateway } from '../interfaces/payment.gateway.interface';
 import { PaymentStatus } from '../enum/payment-status.enum';
-import { ExternalPayment } from 'src/entities/external-payment.entity';
+import { ExternalPayment } from '../entities/external-payment.entity';
 
 export class PaymentUseCases {
   static async findAll(paymentGateway: IPaymentGateway): Promise<Payment[]> {

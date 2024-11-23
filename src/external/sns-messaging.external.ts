@@ -1,4 +1,4 @@
-import { PaymentMessage } from 'src/types/payment-message.type';
+import { PaymentMessage } from '../types/payment-message.type';
 import { IMessaging } from '../interfaces/messaging.interface';
 import { SNS } from 'aws-sdk';
 
