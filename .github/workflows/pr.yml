@@ -1,4 +1,4 @@
-name: Jest Tests and Coverage
+name: Pull request workflow
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main  
 
 jobs:
-   sonar:
+  sonar:
         name: Sonar
         runs-on: ubuntu-latest
         steps:
@@ -20,7 +20,7 @@ jobs:
             env:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-   test:
+  test:
     name: "Tests"
     runs-on: ubuntu-latest  
     steps:
@@ -45,7 +45,16 @@ jobs:
         with:
           name: coverage-report
           path: coverage/  
- #   - name: Upload coverage to Codecov (se for usar badge e codevoc ou outro serviço externo)
- #     uses: codecov/codecov-action@v3
- #     with:
- #       token: ${{ secrets.CODECOV_TOKEN }} 
+      #   - name: Upload coverage to Codecov (se for usar badge e codevoc ou outro serviço externo)
+      #     uses: codecov/codecov-action@v3
+      #     with:
+      #       token: ${{ secrets.CODECOV_TOKEN }}
+  build-and-push:
+      name: Build Image
+      runs-on: ubuntu-latest
+      steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Build Image
+        run: |
+          docker build -f docker/Dockerfile .
