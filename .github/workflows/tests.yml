@@ -21,6 +21,7 @@ jobs:
               SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
    test:
+    name: "Tests"
     runs-on: ubuntu-latest  
     steps:
       - name: Checkout code
@@ -33,11 +34,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          yarn 
 
       - name: Run tests with Jest and collect coverage
         run: |
-          npm test -- --coverage  
+          yarn test -- --coverage  
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
