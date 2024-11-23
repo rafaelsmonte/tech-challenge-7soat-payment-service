@@ -9,7 +9,7 @@
     "swagger": "node ./src/api/swagger.ts",
     "start:dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "start:prod": "node dist/src/index.js",
-    "test": "jest --watch"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",

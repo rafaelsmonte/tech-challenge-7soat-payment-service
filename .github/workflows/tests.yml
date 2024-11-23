@@ -1,0 +1,50 @@
+name: Jest Tests and Coverage
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+    branches:
+      - main  
+
+jobs:
+   sonar:
+        name: Sonar
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+            with:
+              fetch-depth: 0 
+          - uses: sonarsource/sonarqube-scan-action@master
+            env:
+              SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+   test:
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run tests with Jest and collect coverage
+        run: |
+          npm test -- --coverage  
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage/  
+ #   - name: Upload coverage to Codecov (se for usar badge e codevoc ou outro serviço externo)
+ #     uses: codecov/codecov-action@v3
+ #     with:
+ #       token: ${{ secrets.CODECOV_TOKEN }} 
