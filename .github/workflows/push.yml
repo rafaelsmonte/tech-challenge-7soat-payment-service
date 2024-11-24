@@ -5,12 +5,11 @@ on:
     workflows: ["Pull request workflow"]
     types:
       - completed
-  push:
-    branches:
-      - main
+
 
 jobs:
   build-and-push:
+    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
     name: Build Image
     runs-on: ubuntu-latest
     steps:
