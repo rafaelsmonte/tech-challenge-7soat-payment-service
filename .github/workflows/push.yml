@@ -2,7 +2,7 @@ name: Build and Deploy
 
 on:
   workflow_run:
-    workflows: ["Jest Tests and Coverage"] 
+    workflows: ["Pull request workflow"] 
     types:
       - completed  
 
