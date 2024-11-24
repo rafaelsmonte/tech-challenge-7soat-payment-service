@@ -2,7 +2,6 @@ import { ExternalPaymentGateway } from './external-payment-gateway';
 import { IExternalPayment } from '../interfaces/external-payment.interface';
 import { ExternalPayment } from 'src/entities/external-payment.entity';
 
-// Mock da interface IExternalPayment
 jest.mock('../interfaces/external-payment.interface');
 
 describe('ExternalPaymentGateway', () => {
@@ -10,7 +9,6 @@ describe('ExternalPaymentGateway', () => {
   let externalPaymentMethodMock: jest.Mocked<IExternalPayment>;
 
   beforeEach(() => {
-    // Inicializa o mock de IExternalPayment
     externalPaymentMethodMock = {
       create: jest.fn(),
       isPaymentApproved: jest.fn(),
