@@ -5,7 +5,6 @@ import { MessageType } from 'src/enum/message-type.enum';
 import { MessageSender } from 'src/enum/message-sender.enum';
 import { MessageTarget } from 'src/enum/message-target.enum';
 
-// Mock do IMessaging
 jest.mock('../interfaces/messaging.interface');
 
 describe('MessagingGateway', () => {
@@ -13,7 +12,6 @@ describe('MessagingGateway', () => {
   let messagingMock: jest.Mocked<IMessaging>;
 
   beforeEach(() => {
-    // Inicializa o mock do IMessaging
     messagingMock = {
       publishMessage: jest.fn(),
     };

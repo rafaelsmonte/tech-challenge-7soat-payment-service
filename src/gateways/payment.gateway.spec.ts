@@ -4,15 +4,13 @@ import { Payment } from '../entities/payment.entity';
 import { PaymentStatus } from '../enum/payment-status.enum';
 
 
-// Usando jest.Mocked para criar um mock da interface IDatabase
 jest.mock('../interfaces/database.interface'); 
 
 describe('PaymentGateway', () => {
   let paymentGateway: PaymentGateway;
-  let databaseMock: jest.Mocked<IDatabase>; // Mock correto da interface
+  let databaseMock: jest.Mocked<IDatabase>; 
 
   beforeEach(() => {
-    // Inicializa o mock do banco de dados com a tipagem correta
     databaseMock = {
       findAllPayments: jest.fn(),
       findPaymentById: jest.fn(),
