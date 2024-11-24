@@ -41,8 +41,8 @@ jobs:
       - name: "SonarQube Quality Gate Status value"
         run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
   build-and-push:
-    if: github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main'
     name: Build Image
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
