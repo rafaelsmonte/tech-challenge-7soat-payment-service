@@ -2,9 +2,12 @@ name: Build and Deploy
 
 on:
   workflow_run:
-    workflows: ["Pull request workflow"] 
+    workflows: ["Pull request workflow"]
     types:
-      - completed  
+      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   build-and-push:
