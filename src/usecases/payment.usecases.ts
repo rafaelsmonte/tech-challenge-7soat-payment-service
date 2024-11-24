@@ -70,7 +70,6 @@ export class PaymentUseCases {
       success = false;
       payment.setStatus(PaymentStatus.FAIL);
     }
-
     messagingGateway.publishPaymentStatusMessage(payment.getOrderId(), success);
 
     await paymentGateway.updateStatus(payment);

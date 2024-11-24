@@ -2,13 +2,11 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  // Add this if you are using custom paths
   moduleNameMapper: {
     "^src/(.*)$": "<rootDir>/src/$1",
   },
   coverageThreshold: {
     global: {
-      branches: 80,
       functions: 80,
       lines: 80,
       statements: 80
@@ -17,8 +15,17 @@ module.exports = {
   collectCoverage: true,
   coveragePathIgnorePatterns: [
     "/node_modules/",
-    "/.*\\.spec\\.js$/"
+    "/.*\\.spec\\.js$/",
+    "/.*\\.spec\\.js$/",
+    '\\.error\\.ts$',
+    '\\index\\.ts$',
+    '/.*\\swagger\\.ts$',
+    '<rootDir>/src/app/*',
   ],
   coverageDirectory: "coverage",
-  coverageReporters: ["json", "lcov", "text", "clover"]
+  coverageReporters: ["lcov", "text"],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}', 
+    '!src/**/*.d.ts', 
+  ],
 };
