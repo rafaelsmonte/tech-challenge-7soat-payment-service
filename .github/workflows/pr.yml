@@ -1,9 +1,6 @@
 name: Pull request workflow
 
 on:
-  push:
-    branches:
-      - main  
   pull_request:
     branches:
       - main  
@@ -15,37 +12,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'  
-
       - name: Install dependencies
         run: |
           yarn 
-
       - name: Run tests with Jest and collect coverage
         run: |
           yarn test -- --coverage  
-
       - name: Upload coverage report
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
           path: coverage/ 
-           
-      # - name: Send coverage to Coveralls
-      #   env:
-      #     COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} 
-      #   run: |
-      #       cat coverage/lcov.info | npx coveralls
-      - name: Send to sonar qube
-        uses: sonarsource/sonarqube-scan-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-    # Check the Quality Gate status.
       - name: SonarQube Quality Gate check
         uses: sonarsource/sonarqube-quality-gate-action@master
         timeout-minutes: 5
@@ -54,8 +35,7 @@ jobs:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       - name: "SonarQube Quality Gate Status value"
         run: echo "The Quality Gate status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status }}"
-
-  build-and-push:
+  build:
       name: Build Image
       runs-on: ubuntu-latest
       steps:
