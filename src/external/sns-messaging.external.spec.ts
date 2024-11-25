@@ -18,7 +18,6 @@ jest.mock('aws-sdk', () => {
 
 describe('SNSMessaging', () => {
   beforeEach(() => {
-    // Resetando mocks antes de cada teste
     jest.clearAllMocks();
     process.env.AWS_DEFAULT_REGION = 'us-east-1';
     process.env.PAYMENTS_SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:123456789012:MyTopic';
@@ -53,14 +52,10 @@ describe('SNSMessaging', () => {
       payload: {},
     };
 
-    // Mockando o retorno do SNS para simular falha
     const publishMock = jest.fn().mockRejectedValue(new Error('SNS error'));
     SNS.prototype.publish = publishMock;
 
     await expect(messaging.publishMessage(message)).resolves.not.toThrow();
-    // Aqui não estamos vendo o throw explícito no código atual,
-    // mas você pode lançar um erro ou um log no caso de falha.
-    // Para o caso de erro, você poderia verificar um log ou lançar exceção.
   });
 
   it('should log error when SNS publish fails', async () => {
@@ -74,13 +69,11 @@ describe('SNSMessaging', () => {
       payload: {},
     };
 
-    // Mockando o retorno do SNS para simular falha
     const publishMock = jest.fn().mockRejectedValue(new Error('SNS error'));
     SNS.prototype.publish = publishMock;
 
     await messaging.publishMessage(message);
 
-    // Verificando se o erro foi logado no console
     expect(consoleSpy).toHaveBeenCalledWith('error sending message: ' + JSON.stringify(new Error('SNS error')));
     consoleSpy.mockRestore();
   });

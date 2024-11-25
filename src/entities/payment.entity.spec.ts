@@ -1,11 +1,10 @@
 import { Payment } from './payment.entity';
 import { PaymentStatus } from '../enum/payment-status.enum';
 
-describe('Payment', () => {
+describe('Payment', () => { 
   let payment: Payment;
 
   beforeEach(() => {
-    // Criando uma instância de Payment com valores iniciais
     payment = new Payment(
       1, 123, new Date(), new Date(), 42, 'PENDING', 100, 'QRcode', 'QRcodeB64'
     );
@@ -27,7 +26,7 @@ describe('Payment', () => {
     expect(newPayment.getStatus()).toBe(status);
     expect(newPayment.getPixQrCode()).toBe(pixQrCode);
     expect(newPayment.getPixQrCodeBase64()).toBe(pixQrCodeBase64);
-    expect(newPayment.getId()).toBe(0); // O id deve ser 0 porque é novo
+    expect(newPayment.getId()).toBe(0);
   });
 
   it('should return correct values from getters', () => {
