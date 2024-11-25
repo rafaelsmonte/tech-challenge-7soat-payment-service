@@ -8,7 +8,7 @@
     "copy-build-deps": "copyfiles -u 2 src/api/swagger.json dist/src/api",
     "swagger": "node ./src/api/swagger.ts",
     "start:dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
-    "start:prod": "node dist/src/index.js",
+    "start:prod": "node dist/index.js",
     "test": "jest"
   },
   "author": "",
