@@ -8,11 +8,11 @@ export class SNSMessaging implements IMessaging {
   constructor() {
     if (process.env.ENVIRONMENT === 'DEVELOPMENT') {
       this.snsClient = new SNS({
-        region: process.env.AWS_DEFAULT_REGION,
+        region: process.env.AWS_REGION,
         endpoint: 'http://localstack:4566',
       });
     } else {
-      this.snsClient = new SNS({ region: process.env.AWS_DEFAULT_REGION });
+      this.snsClient = new SNS({ region: process.env.AWS_REGION });
     }
   }
 

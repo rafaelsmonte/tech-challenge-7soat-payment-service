@@ -19,13 +19,14 @@ jest.mock('aws-sdk', () => {
 describe('SNSMessaging', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.AWS_DEFAULT_REGION = 'us-east-1';
-    process.env.PAYMENTS_SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:123456789012:MyTopic';
+    process.env.AWS_REGION = 'us-east-1';
+    process.env.PAYMENTS_SNS_TOPIC_ARN =
+      'arn:aws:sns:us-east-1:123456789012:MyTopic';
   });
 
   it('should configure SNS client with localstack in DEVELOPMENT environment', () => {
     process.env.ENVIRONMENT = 'DEVELOPMENT';
-    
+
     const messaging = new SNSMessaging();
     expect(SNS).toHaveBeenCalledWith({
       region: 'us-east-1',
@@ -74,7 +75,9 @@ describe('SNSMessaging', () => {
 
     await messaging.publishMessage(message);
 
-    expect(consoleSpy).toHaveBeenCalledWith('error sending message: ' + JSON.stringify(new Error('SNS error')));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'error sending message: ' + JSON.stringify(new Error('SNS error')),
+    );
     consoleSpy.mockRestore();
   });
 
