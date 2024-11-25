@@ -5,7 +5,7 @@ export class Payment {
   private externalId: number;
   private createdAt: Date;
   private updatedAt: Date;
-  private orderId: number;
+  private orderId: string;
   private status: PaymentStatus;
   private price: number;
   private pixQrCode: string;
@@ -16,7 +16,7 @@ export class Payment {
     externalId: number,
     createdAt: Date,
     updateAt: Date,
-    orderId: number,
+    orderId: string,
     status: string,
     price: number,
     pixQrCode: string,
@@ -36,7 +36,7 @@ export class Payment {
   static new(
     externalId: number,
     price: number,
-    orderId: number,
+    orderId: string,
     status: PaymentStatus,
     pixQrCode: string,
     pixQrCodeBase64: string,
@@ -76,7 +76,7 @@ export class Payment {
     return this.updatedAt;
   }
 
-  public getOrderId(): number {
+  public getOrderId(): string {
     return this.orderId;
   }
 
@@ -109,7 +109,7 @@ export class Payment {
     this.updatedAt = updatedAt;
   }
 
-  public setOrderId(orderId: number): void {
+  public setOrderId(orderId: string): void {
     this.orderId = orderId;
   }
 

@@ -1,3 +1,3 @@
 export interface IMessagingGateway {
-  publishPaymentStatusMessage(orderId: number, success: boolean): Promise<void>;
+  publishPaymentStatusMessage(orderId: string, success: boolean): Promise<void>;
 }

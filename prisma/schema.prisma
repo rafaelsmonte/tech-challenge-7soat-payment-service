@@ -13,7 +13,7 @@ model Payment {
   externalId      BigInt
   createdAt       DateTime      @default(now()) @db.Timestamptz(3)
   updatedAt       DateTime      @updatedAt @db.Timestamptz(3)
-  orderId         Int
+  orderId         String
   price           Decimal       @db.Decimal(10, 2)
   pixQrCode       String
   pixQrCodeBase64 String

@@ -27,7 +27,7 @@ export class PaymentController {
   static async create(
     database: IDatabase,
     externalPayment: IExternalPayment,
-    orderId: number,
+    orderId: string,
     price: number,
   ): Promise<string> {
     const paymentGateway = new PaymentGateway(database);

@@ -27,7 +27,7 @@ export class PaymentUseCases {
   static async create(
     paymentGateway: IPaymentGateway,
     externalPaymentGateway: IExternalPaymentGateway,
-    orderId: number,
+    orderId: string,
     price: number,
   ): Promise<Payment> {
     const newExternalPayment = await externalPaymentGateway.create(

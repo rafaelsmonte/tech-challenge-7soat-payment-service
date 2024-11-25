@@ -9,7 +9,7 @@ export class MessagingGateway implements IMessagingGateway {
   constructor(private messaging: IMessaging) {}
 
   public async publishPaymentStatusMessage(
-    orderId: number,
+    orderId: string,
     success: boolean,
   ): Promise<void> {
     let type: MessageType;
