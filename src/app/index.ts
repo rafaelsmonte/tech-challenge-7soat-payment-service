@@ -9,6 +9,7 @@ import { InvalidPaymentStatusError } from '../errors/invalid-payment-status.erro
 import { IncorrectPaymentActionError } from '../errors/incorrect-payment-action.error';
 import { DatabaseError } from '../errors/database.error';
 import { PaymentError } from '../errors/payment.error';
+import { apiKeyMiddleware } from './api-key-auth.middleware';
 
 export class PaymentApp {
   constructor(
@@ -66,25 +67,29 @@ export class PaymentApp {
         .catch((error) => this.handleError(error, response));
     });
 
-    app.post('/payment', async (request: Request, response: Response) => {
-      const { orderId, price } = request.body;
-      await PaymentController.create(
-        this.database,
-        this.externalPayment,
-        orderId,
-        price,
-      )
-        .then((payment) => {
-          response
-            .setHeader('Content-type', 'application/json')
-            .status(200)
-            .send(payment);
-        })
-        .catch((error) => this.handleError(error, response));
-    });
+    // TODO api key
+    app.post(
+      '/private/payment',
+      apiKeyMiddleware,
+      async (request: Request, response: Response) => {
+        const { orderId, price } = request.body;
+        await PaymentController.create(
+          this.database,
+          this.externalPayment,
+          orderId,
+          price,
+        )
+          .then((payment) => {
+            response
+              .setHeader('Content-type', 'application/json')
+              .status(200)
+              .send(payment);
+          })
+          .catch((error) => this.handleError(error, response));
+      },
+    );
 
     // Mercado Pago Webhook
-    // TODO qual endpoint?
     app.post(
       '/payment/update-status',
       async (req: Request, res: Response, next: NextFunction) => {
