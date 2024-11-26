@@ -6,14 +6,14 @@ describe('Payment', () => {
 
   beforeEach(() => {
     payment = new Payment(
-      1, 123, new Date(), new Date(), 42, 'PENDING', 100, 'QRcode', 'QRcodeB64'
+      1, 123, new Date(), new Date(), '42', 'PENDING', 100, 'QRcode', 'QRcodeB64'
     );
   });
 
   it('should create a new Payment object using static method', () => {
     const externalId = 123;
     const price = 100;
-    const orderId = 42;
+    const orderId = '42';
     const status = PaymentStatus.PENDING;
     const pixQrCode = 'QRcode';
     const pixQrCodeBase64 = 'QRcodeB64';
@@ -34,7 +34,7 @@ describe('Payment', () => {
     expect(payment.getExternalId()).toBe(123);
     expect(payment.getCreatedAt()).toBeInstanceOf(Date);
     expect(payment.getUpdatedAt()).toBeInstanceOf(Date);
-    expect(payment.getOrderId()).toBe(42);
+    expect(payment.getOrderId()).toBe('42');
     expect(payment.getStatus()).toBe('PENDING');
     expect(payment.getPrice()).toBe(100);
     expect(payment.getPixQrCode()).toBe('QRcode');
@@ -57,8 +57,8 @@ describe('Payment', () => {
   });
 
   it('should correctly set the orderId using setter', () => {
-    payment.setOrderId(50);
-    expect(payment.getOrderId()).toBe(50);
+    payment.setOrderId("50");
+    expect(payment.getOrderId()).toBe("50");
   });
 
   it('should correctly set the status using setter', () => {

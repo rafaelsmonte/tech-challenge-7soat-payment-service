@@ -32,8 +32,8 @@ describe('PaymentController', () => {
 
   it('should find all payments', async () => { 
     const mockPayments = [
-      new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64'),
-      new Payment(2, 124, new Date(), new Date(), 43, PaymentStatus.PENDING, 200, 'QRcode2', 'QRcodeB64-2'),
+      new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64'),
+      new Payment(2, 124, new Date(), new Date(), '43', PaymentStatus.PENDING, 200, 'QRcode2', 'QRcodeB64-2'),
     ];
     mockDatabase.findAllPayments.mockResolvedValue(mockPayments);
 
@@ -44,7 +44,7 @@ describe('PaymentController', () => {
   });
 
   it('should find a payment by id', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
     mockDatabase.findPaymentById.mockResolvedValue(mockPayment);
 
     const result = await PaymentController.findById(mockDatabase, 1);
@@ -55,11 +55,11 @@ describe('PaymentController', () => {
   });
 
   it('should create a payment', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
     mockDatabase.createPayment.mockResolvedValue(mockPayment);
     mockExternalPayment.create.mockResolvedValue(new ExternalPayment(1,100,'QRcode','QRcodeB64'));
 
-    const result = await PaymentController.create(mockDatabase, mockExternalPayment, 42, 100);
+    const result = await PaymentController.create(mockDatabase, mockExternalPayment, '42', 100);
 
     expect(result).toBe(JSON.stringify(mockPayment));
     expect(mockDatabase.createPayment).toHaveBeenCalledTimes(1);
@@ -67,7 +67,7 @@ describe('PaymentController', () => {
   });
 
   it('should update payment status on payment received', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
     mockDatabase.findPaymentById.mockResolvedValue(mockPayment);
     mockExternalPayment.isPaymentApproved.mockResolvedValue(true);
 

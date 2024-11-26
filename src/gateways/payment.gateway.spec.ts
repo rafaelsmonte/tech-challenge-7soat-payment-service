@@ -22,8 +22,8 @@ describe('PaymentGateway', () => {
 
   it('should call findAllPayments and return all payments', async () => {
     const mockPayments: Payment[] = [
-      new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64'),
-      new Payment(2, 123, new Date(), new Date(), 2, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64')
+      new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64'),
+      new Payment(2, 123, new Date(), new Date(), '2', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64')
     ];
     
     databaseMock.findAllPayments.mockResolvedValue(mockPayments);
@@ -35,7 +35,7 @@ describe('PaymentGateway', () => {
   });
 
   it('should call findPaymentById and return the payment for a valid id', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
 
     databaseMock.findPaymentById.mockResolvedValue(mockPayment);
 
@@ -57,7 +57,7 @@ describe('PaymentGateway', () => {
   });
 
   it('should call createPayment and return the created payment', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
 
     databaseMock.createPayment.mockResolvedValue(mockPayment);
 
@@ -69,8 +69,8 @@ describe('PaymentGateway', () => {
   });
 
   it('should call updatePaymentStatus and return the updated payment', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
-    const updatedPayment: Payment = new Payment(1, 123, new Date(), new Date(), 42, PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const updatedPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
 
     databaseMock.updatePaymentStatus.mockResolvedValue(updatedPayment);
 

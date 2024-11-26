@@ -52,7 +52,7 @@ describe('PrismaDatabase', () => {
     101,
     new Date('2024-01-01T00:00:00Z'),
     new Date('2024-01-02T00:00:00Z'),
-    123,
+    '123',
     PaymentStatus.PENDING,
     200.75,
     'someQrCode',

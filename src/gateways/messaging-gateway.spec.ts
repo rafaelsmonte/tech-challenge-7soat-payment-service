@@ -19,7 +19,7 @@ describe('MessagingGateway', () => {
   });
 
   it('should call publishMessage with success message when success is true', async () => {
-    const orderId = 123;
+    const orderId = '123';
     const success = true;
 
     const expectedMessage: PaymentMessage = {
@@ -38,7 +38,7 @@ describe('MessagingGateway', () => {
   });
 
   it('should call publishMessage with fail message when success is false', async () => {
-    const orderId = 123;
+    const orderId = '123';
     const success = false;
 
     const expectedMessage: PaymentMessage = {
