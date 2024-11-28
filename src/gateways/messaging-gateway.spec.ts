@@ -1,9 +1,9 @@
 import { MessagingGateway } from './messaging-gateway';
 import { IMessaging } from '../interfaces/messaging.interface';
-import { PaymentMessage } from 'src/types/payment-message.type';
-import { MessageType } from 'src/enum/message-type.enum';
-import { MessageSender } from 'src/enum/message-sender.enum';
-import { MessageTarget } from 'src/enum/message-target.enum';
+import { PaymentMessage } from '../types/payment-message.type';
+import { MessageType } from '../enum/message-type.enum';
+import { MessageSender } from '../enum/message-sender.enum';
+import { MessageTarget } from '../enum/message-target.enum';
 
 jest.mock('../interfaces/messaging.interface');
 

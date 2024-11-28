@@ -36,6 +36,7 @@ export class PrismaDatabase implements IDatabase {
           ),
       );
     } catch (error) {
+      console.log(`Database error: ${error}`);
       throw new DatabaseError('Failed to find payments');
     }
   }
@@ -62,6 +63,7 @@ export class PrismaDatabase implements IDatabase {
         payment.pixQrCodeBase64,
       );
     } catch (error) {
+      console.log(`Database error: ${error}`);
       throw new DatabaseError('Failed to find payments');
     }
   }
@@ -92,6 +94,7 @@ export class PrismaDatabase implements IDatabase {
         createdPayment.pixQrCodeBase64,
       );
     } catch (error) {
+      console.log(`Database error: ${error}`);
       throw new DatabaseError('Failed to save payment');
     }
   }
@@ -120,6 +123,7 @@ export class PrismaDatabase implements IDatabase {
         updatedPayment.pixQrCodeBase64,
       );
     } catch (error) {
+      console.log(`Database error: ${error}`);
       throw new DatabaseError('Failed to update payment status');
     }
   }

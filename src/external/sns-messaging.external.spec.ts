@@ -1,9 +1,9 @@
 import { SNSMessaging } from './sns-messaging.external';
 import { SNS } from 'aws-sdk';
-import { PaymentMessage } from 'src/types/payment-message.type';
-import { MessageSender } from 'src/enum/message-sender.enum';
-import { MessageTarget } from 'src/enum/message-target.enum';
-import { MessageType } from 'src/enum/message-type.enum';
+import { PaymentMessage } from '../types/payment-message.type';
+import { MessageSender } from '../enum/message-sender.enum';
+import { MessageTarget } from '../enum/message-target.enum';
+import { MessageType } from '../enum/message-type.enum';
 
 // Mock do SNS
 jest.mock('aws-sdk', () => {

@@ -1,5 +1,5 @@
 import { PaymentAdapter } from './payment.adapter';
-import { Payment } from 'src/entities/payment.entity';
+import { Payment } from '../entities/payment.entity';
 
 describe('PaymentAdapter', () => {
   const mockPayment = (): Payment =>

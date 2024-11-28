@@ -1,6 +1,6 @@
 import { IExternalPayment } from '../interfaces/external-payment.interface';
 import { MercadoPagoConfig, Payment as MercadoPagoPayment } from 'mercadopago';
-import { PaymentError } from '../errors/payment.error';
+import { ExternalPaymentError } from '../errors/external-payment.error';
 import { v4 as uuidv4 } from 'uuid';
 import { ExternalPayment } from '../entities/external-payment.entity';
 
@@ -33,12 +33,12 @@ export class MercadoPago implements IExternalPayment {
         paymentResponse?.point_of_interaction?.transaction_data?.qr_code_base64;
 
       if (!paymentId || !pixQrCode || !pixQrCodeBase64)
-        throw new PaymentError('Failed to create payment');
+        throw new ExternalPaymentError('Failed to create payment');
 
       return new ExternalPayment(paymentId, price, pixQrCode, pixQrCodeBase64);
-    } catch (error: any) {
-      console.log(error);
-      throw new PaymentError('Failed to create payment');
+    } catch (error) {
+      console.log(`External payment error: ${error}`);
+      throw new ExternalPaymentError('Failed to create payment');
     }
   }
 
@@ -55,7 +55,8 @@ export class MercadoPago implements IExternalPayment {
 
       return paymentResponse.status === 'approved';
     } catch (error) {
-      throw new PaymentError('Failed to check payment status');
+      console.log(`External payment error: ${error}`);
+      throw new ExternalPaymentError('Failed to check payment status');
     }
   }
 }

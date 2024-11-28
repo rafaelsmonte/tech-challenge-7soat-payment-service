@@ -8,7 +8,7 @@ import { createHmac } from 'crypto';
 import { InvalidPaymentStatusError } from '../errors/invalid-payment-status.error';
 import { IncorrectPaymentActionError } from '../errors/incorrect-payment-action.error';
 import { DatabaseError } from '../errors/database.error';
-import { PaymentError } from '../errors/payment.error';
+import { ExternalPaymentError } from '../errors/external-payment.error';
 import { apiKeyMiddleware } from './api-key-auth.middleware';
 
 export class PaymentApp {
@@ -67,7 +67,6 @@ export class PaymentApp {
         .catch((error) => this.handleError(error, response));
     });
 
-    // TODO api key
     app.post(
       '/private/payment',
       apiKeyMiddleware,
@@ -182,7 +181,7 @@ export class PaymentApp {
       response.status(400).json({ message: error.message });
     } else if (error instanceof DatabaseError) {
       response.status(500).json({ message: error.message });
-    } else if (error instanceof PaymentError) {
+    } else if (error instanceof ExternalPaymentError) {
       response.status(500).json({ message: error.message });
     } else {
       console.log('An unexpected error has occurred: ' + error);

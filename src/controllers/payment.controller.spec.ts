@@ -4,7 +4,7 @@ import { IExternalPayment } from '../interfaces/external-payment.interface';
 import { IMessaging } from '../interfaces/messaging.interface';
 import { Payment } from '../entities/payment.entity';
 import { PaymentStatus } from '../enum/payment-status.enum';
-import { ExternalPayment } from 'src/entities/external-payment.entity';
+import { ExternalPayment } from '../entities/external-payment.entity';
 
 describe('PaymentController', () => {
   let mockDatabase: jest.Mocked<IDatabase>;
@@ -25,15 +25,35 @@ describe('PaymentController', () => {
     } as jest.Mocked<IExternalPayment>;
 
     mockMessaging = {
-        send: jest.fn(),
-        publishMessage: jest.fn(),
-      } as jest.Mocked<IMessaging>;
+      send: jest.fn(),
+      publishMessage: jest.fn(),
+    } as jest.Mocked<IMessaging>;
   });
 
-  it('should find all payments', async () => { 
+  it('should find all payments', async () => {
     const mockPayments = [
-      new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64'),
-      new Payment(2, 124, new Date(), new Date(), '43', PaymentStatus.PENDING, 200, 'QRcode2', 'QRcodeB64-2'),
+      new Payment(
+        1,
+        123,
+        new Date(),
+        new Date(),
+        '42',
+        PaymentStatus.SUCCESS,
+        100,
+        'QRcode',
+        'QRcodeB64',
+      ),
+      new Payment(
+        2,
+        124,
+        new Date(),
+        new Date(),
+        '43',
+        PaymentStatus.PENDING,
+        200,
+        'QRcode2',
+        'QRcodeB64-2',
+      ),
     ];
     mockDatabase.findAllPayments.mockResolvedValue(mockPayments);
 
@@ -44,7 +64,17 @@ describe('PaymentController', () => {
   });
 
   it('should find a payment by id', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.SUCCESS,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
     mockDatabase.findPaymentById.mockResolvedValue(mockPayment);
 
     const result = await PaymentController.findById(mockDatabase, 1);
@@ -55,11 +85,28 @@ describe('PaymentController', () => {
   });
 
   it('should create a payment', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.SUCCESS,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
     mockDatabase.createPayment.mockResolvedValue(mockPayment);
-    mockExternalPayment.create.mockResolvedValue(new ExternalPayment(1,100,'QRcode','QRcodeB64'));
+    mockExternalPayment.create.mockResolvedValue(
+      new ExternalPayment(1, 100, 'QRcode', 'QRcodeB64'),
+    );
 
-    const result = await PaymentController.create(mockDatabase, mockExternalPayment, '42', 100);
+    const result = await PaymentController.create(
+      mockDatabase,
+      mockExternalPayment,
+      '42',
+      100,
+    );
 
     expect(result).toBe(JSON.stringify(mockPayment));
     expect(mockDatabase.createPayment).toHaveBeenCalledTimes(1);
@@ -67,11 +114,26 @@ describe('PaymentController', () => {
   });
 
   it('should update payment status on payment received', async () => {
-    const mockPayment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.PENDING,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
     mockDatabase.findPaymentById.mockResolvedValue(mockPayment);
     mockExternalPayment.isPaymentApproved.mockResolvedValue(true);
 
-    await PaymentController.updateStatusOnPaymentReceived(mockDatabase, mockExternalPayment, mockMessaging, 1);
+    await PaymentController.updateStatusOnPaymentReceived(
+      mockDatabase,
+      mockExternalPayment,
+      mockMessaging,
+      1,
+    );
 
     expect(mockDatabase.updatePaymentStatus).toHaveBeenCalled();
     expect(mockMessaging.publishMessage).toHaveBeenCalled();

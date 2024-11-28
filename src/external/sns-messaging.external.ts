@@ -26,8 +26,7 @@ export class SNSMessaging implements IMessaging {
     try {
       await this.snsClient.publish(snsMessage).promise();
     } catch (error) {
-      console.log('error sending message: ' + JSON.stringify(error));
-      // TODO throw messaging exception
+      console.log(`Messaging error: ${error}`);
     }
   }
 }
