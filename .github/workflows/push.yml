@@ -104,8 +104,8 @@ jobs:
     - name: Update EKS deployment with new image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: tech-challenge-7soat-ecr-api
-        DEPLOYMENT_NAME: tech-challenge-7soat-api-deployment
+        ECR_REPOSITORY: tech-challenge-7soat/payments-service
+        DEPLOYMENT_NAME: tech-challenge-7soat-payments-service-deployment
         CLUSTER_NAME: tech-challenge-7soat
         IMAGE_TAG: latest
       run: |
