@@ -23,11 +23,8 @@ export class SNSMessaging implements IMessaging {
       MessageGroupId: message.type,
     };
 
-    console.log('enviando msg: ', JSON.stringify(message));
-
     try {
       await this.snsClient.publish(snsMessage).promise();
-      console.log('msg enviada');
     } catch (error) {
       console.log(`Messaging error: ${error}`);
     }
