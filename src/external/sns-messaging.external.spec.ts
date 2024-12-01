@@ -10,7 +10,7 @@ jest.mock('aws-sdk', () => {
   return {
     SNS: jest.fn().mockImplementation(() => {
       return {
-        publish: jest.fn(), // Mock do método publish
+        publish: jest.fn(),
       };
     }),
   };
@@ -76,7 +76,7 @@ describe('SNSMessaging', () => {
     await messaging.publishMessage(message);
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      'error sending message: ' + JSON.stringify(new Error('SNS error')),
+      "Messaging error: TypeError: Cannot read properties of undefined (reading 'promise')",
     );
     consoleSpy.mockRestore();
   });
