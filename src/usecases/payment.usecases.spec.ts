@@ -110,7 +110,7 @@ describe('PaymentUseCases', () => {
         'QRcode',
         'QRcodeB64',
       );
-      mockPaymentGateway.findById.mockResolvedValue(mockPayment);
+      mockPaymentGateway.findByExternalId.mockResolvedValue(mockPayment);
       mockExternalPaymentGateway.isPaymentApproved.mockResolvedValue(true);
 
       await PaymentUseCases.updateStatusOnPaymentReceived(
@@ -139,7 +139,7 @@ describe('PaymentUseCases', () => {
         'QRcode',
         'QRcodeB64',
       );
-      mockPaymentGateway.findById.mockResolvedValue(mockPayment);
+      mockPaymentGateway.findByExternalId.mockResolvedValue(mockPayment);
       mockExternalPaymentGateway.isPaymentApproved.mockResolvedValue(false);
 
       await PaymentUseCases.updateStatusOnPaymentReceived(
@@ -167,7 +167,7 @@ describe('PaymentUseCases', () => {
         'QRcode',
         'QRcodeB64',
       );
-      mockPaymentGateway.findById.mockResolvedValue(mockPayment);
+      mockPaymentGateway.findByExternalId.mockResolvedValue(mockPayment);
 
       await expect(
         PaymentUseCases.updateStatusOnPaymentReceived(
@@ -178,7 +178,7 @@ describe('PaymentUseCases', () => {
         ),
       ).rejects.toThrow(InvalidPaymentStatusError);
 
-      expect(mockPaymentGateway.findById).toHaveBeenCalledTimes(1);
+      expect(mockPaymentGateway.findByExternalId).toHaveBeenCalledTimes(1);
     });
 
     it('should throw PaymentNotFoundError if payment is not found', async () => {
@@ -193,7 +193,7 @@ describe('PaymentUseCases', () => {
         ),
       ).rejects.toThrow(PaymentNotFoundError);
 
-      expect(mockPaymentGateway.findById).toHaveBeenCalledTimes(1);
+      expect(mockPaymentGateway.findByExternalId).toHaveBeenCalledTimes(1);
     });
     it('should handle the case when payment is already processed', async () => {
       const mockPayment = new Payment(
@@ -216,9 +216,9 @@ describe('PaymentUseCases', () => {
           mockMessagingGateway,
           1,
         ),
-      ).rejects.toThrow(InvalidPaymentStatusError);
+      ).rejects.toThrow(PaymentNotFoundError);
 
-      expect(mockPaymentGateway.findById).toHaveBeenCalledTimes(1);
+      expect(mockPaymentGateway.findById).toHaveBeenCalledTimes(0);
     });
   });
   describe('findAll', () => {

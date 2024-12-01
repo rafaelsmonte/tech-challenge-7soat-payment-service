@@ -126,14 +126,14 @@ describe('PaymentController', () => {
       'QRcode',
       'QRcodeB64',
     );
-    mockDatabase.findPaymentById.mockResolvedValue(mockPayment);
+    mockDatabase.findPaymentByExternalId.mockResolvedValue(mockPayment);
     mockExternalPayment.isPaymentApproved.mockResolvedValue(true);
 
     await PaymentController.updateStatusOnPaymentReceived(
       mockDatabase,
       mockExternalPayment,
       mockMessaging,
-      1,
+      123,
     );
 
     expect(mockDatabase.updatePaymentStatus).toHaveBeenCalled();
