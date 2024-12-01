@@ -54,7 +54,7 @@ export class PaymentUseCases {
     messagingGateway: IMessagingGateway,
     paymentId: number,
   ): Promise<void> {
-    const payment = await paymentGateway.findById(paymentId);
+    const payment = await paymentGateway.findByExternalId(paymentId);
 
     if (!payment) throw new PaymentNotFoundError('Payment not found');
 

@@ -13,6 +13,10 @@ export class PaymentGateway implements IPaymentGateway {
     return this.database.findPaymentById(id);
   }
 
+  async findByExternalId(id: number): Promise<Payment | null> {
+    return this.database.findPaymentByExternalId(id);
+  }
+
   async create(payment: Payment): Promise<Payment> {
     return this.database.createPayment(payment);
   }

@@ -68,6 +68,31 @@ export class PrismaDatabase implements IDatabase {
     }
   }
 
+  async findPaymentByExternalId(id: number): Promise<Payment | null> {
+    try {
+      const payment: PrismaPayment = await this.prismaClient.payment.findFirst({
+        where: { externalId: id },
+      });
+
+      if (!payment) return null;
+
+      return new Payment(
+        payment.id,
+        Number(payment.externalId),
+        payment.createdAt,
+        payment.updatedAt,
+        payment.orderId,
+        payment.status,
+        new Decimal(payment.price).toNumber(),
+        payment.pixQrCode,
+        payment.pixQrCodeBase64,
+      );
+    } catch (error) {
+      console.log(`Database error: ${error}`);
+      throw new DatabaseError('Failed to find payments');
+    }
+  }
+
   async createPayment(payment: Payment): Promise<Payment> {
     try {
       const createdPayment: PrismaPayment =
