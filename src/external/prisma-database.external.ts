@@ -10,7 +10,7 @@ import { Payment } from '../entities/payment.entity';
 import { DatabaseError } from '../errors/database.error';
 
 export class PrismaDatabase implements IDatabase {
-  private prismaClient: PrismaClient;
+  private readonly prismaClient: PrismaClient;
 
   constructor() {
     this.prismaClient = new PrismaClient();

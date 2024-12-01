@@ -3,7 +3,7 @@ import { IMessaging } from '../interfaces/messaging.interface';
 import { SNS } from 'aws-sdk';
 
 export class SNSMessaging implements IMessaging {
-  private snsClient: SNS;
+  private readonly snsClient: SNS;
 
   constructor() {
     if (process.env.ENVIRONMENT === 'DEVELOPMENT') {
