@@ -92,6 +92,7 @@ export class PaymentApp {
     app.post(
       '/payment/update-status',
       async (req: Request, res: Response, next: NextFunction) => {
+        console.log('evento mercado pago');
         const { query } = req;
         const dataID = query['data.id'] as string;
         const xSignature = req.headers['x-signature'];
@@ -152,6 +153,8 @@ export class PaymentApp {
 
         if (action !== 'payment.updated')
           return response.status(500).json({ message: 'Invalid Action' });
+
+        console.log('chamou controller');
 
         await PaymentController.updateStatusOnPaymentReceived(
           this.database,
