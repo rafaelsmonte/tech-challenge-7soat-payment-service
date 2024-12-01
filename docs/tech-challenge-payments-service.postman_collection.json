@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "7676e238-c6ca-44bc-b8c6-7bc8e47810f3",
+		"name": "tech-challenge-payments-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6258676"
+	},
+	"item": [
+		{
+			"name": "Metrics",
+			"item": [
+				{
+					"name": "/metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metrics",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "/payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/payment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/private/payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "test",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderId\": \"1\",\n    \"price\": 10.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/private/payment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"private",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://evff0dxwnk.execute-api.us-east-1.amazonaws.com/apis/payments/"
+		},
+		{
+			"key": "url",
+			"value": "http://localhost:3000",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
