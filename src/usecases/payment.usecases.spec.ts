@@ -16,6 +16,7 @@ describe('PaymentUseCases', () => {
   beforeEach(() => {
     mockPaymentGateway = {
       findAll: jest.fn(),
+      findByExternalId: jest.fn(),
       findById: jest.fn(),
       create: jest.fn(),
       updateStatus: jest.fn(),

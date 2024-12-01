@@ -3,17 +3,17 @@ import { IDatabase } from '../interfaces/database.interface';
 import { Payment } from '../entities/payment.entity';
 import { PaymentStatus } from '../enum/payment-status.enum';
 
-
-jest.mock('../interfaces/database.interface'); 
+jest.mock('../interfaces/database.interface');
 
 describe('PaymentGateway', () => {
   let paymentGateway: PaymentGateway;
-  let databaseMock: jest.Mocked<IDatabase>; 
+  let databaseMock: jest.Mocked<IDatabase>;
 
   beforeEach(() => {
     databaseMock = {
       findAllPayments: jest.fn(),
       findPaymentById: jest.fn(),
+      findPaymentByExternalId: jest.fn(),
       createPayment: jest.fn(),
       updatePaymentStatus: jest.fn(),
     };
@@ -22,10 +22,30 @@ describe('PaymentGateway', () => {
 
   it('should call findAllPayments and return all payments', async () => {
     const mockPayments: Payment[] = [
-      new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64'),
-      new Payment(2, 123, new Date(), new Date(), '2', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64')
+      new Payment(
+        1,
+        123,
+        new Date(),
+        new Date(),
+        '42',
+        PaymentStatus.PENDING,
+        100,
+        'QRcode',
+        'QRcodeB64',
+      ),
+      new Payment(
+        2,
+        123,
+        new Date(),
+        new Date(),
+        '2',
+        PaymentStatus.PENDING,
+        100,
+        'QRcode',
+        'QRcodeB64',
+      ),
     ];
-    
+
     databaseMock.findAllPayments.mockResolvedValue(mockPayments);
 
     const result = await paymentGateway.findAll();
@@ -35,7 +55,17 @@ describe('PaymentGateway', () => {
   });
 
   it('should call findPaymentById and return the payment for a valid id', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.PENDING,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
 
     databaseMock.findPaymentById.mockResolvedValue(mockPayment);
 
@@ -57,7 +87,17 @@ describe('PaymentGateway', () => {
   });
 
   it('should call createPayment and return the created payment', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.PENDING,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
 
     databaseMock.createPayment.mockResolvedValue(mockPayment);
 
@@ -69,15 +109,37 @@ describe('PaymentGateway', () => {
   });
 
   it('should call updatePaymentStatus and return the updated payment', async () => {
-    const mockPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.PENDING, 100, 'QRcode', 'QRcodeB64');
-    const updatedPayment: Payment = new Payment(1, 123, new Date(), new Date(), '42', PaymentStatus.SUCCESS, 100, 'QRcode', 'QRcodeB64');
+    const mockPayment: Payment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.PENDING,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
+    const updatedPayment: Payment = new Payment(
+      1,
+      123,
+      new Date(),
+      new Date(),
+      '42',
+      PaymentStatus.SUCCESS,
+      100,
+      'QRcode',
+      'QRcodeB64',
+    );
 
     databaseMock.updatePaymentStatus.mockResolvedValue(updatedPayment);
 
     const result = await paymentGateway.updateStatus(updatedPayment);
 
     expect(result).toEqual(updatedPayment);
-    expect(databaseMock.updatePaymentStatus).toHaveBeenCalledWith(updatedPayment);
+    expect(databaseMock.updatePaymentStatus).toHaveBeenCalledWith(
+      updatedPayment,
+    );
     expect(databaseMock.updatePaymentStatus).toHaveBeenCalledTimes(1);
   });
 });

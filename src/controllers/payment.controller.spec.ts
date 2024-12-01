@@ -14,6 +14,7 @@ describe('PaymentController', () => {
   beforeEach(() => {
     mockDatabase = {
       findAllPayments: jest.fn(),
+      findPaymentByExternalId: jest.fn(),
       findPaymentById: jest.fn(),
       createPayment: jest.fn(),
       updatePaymentStatus: jest.fn(),
