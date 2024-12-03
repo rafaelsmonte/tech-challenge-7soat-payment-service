@@ -8,6 +8,7 @@ import { IDatabase } from '../interfaces/database.interface';
 import { PaymentAdapter } from '../adapters/payment.adapter';
 
 export class PaymentController {
+
   static async findAll(database: IDatabase): Promise<string> {
     const paymentGateway = new PaymentGateway(database);
 
@@ -61,3 +62,5 @@ export class PaymentController {
     );
   }
 }
+
+
