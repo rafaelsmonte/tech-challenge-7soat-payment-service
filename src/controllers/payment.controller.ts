@@ -61,21 +61,8 @@ export class PaymentController {
     );
   }
   //method for testing sonnarqube coverage, should not be merged on main
-  static async updateStatusOnPaymentReceived_testing_coverage(
-    database: IDatabase,
-    externalPayment: IExternalPayment,
-    messaging: IMessaging,
-    paymentId: number,
-  ): Promise<void> {
-    const paymentGateway = new PaymentGateway(database);
-    const externalPaymentGateway = new ExternalPaymentGateway(externalPayment);
-    const messagingGateway = new MessagingGateway(messaging);
-
-    await PaymentUseCases.updateStatusOnPaymentReceived(
-      paymentGateway,
-      externalPaymentGateway,
-      messagingGateway,
-      paymentId,
-    );
+  static testing_coverage(number: number): string {
+    if (number > 10) return '10';
+    return number.toString();
   }
 }
