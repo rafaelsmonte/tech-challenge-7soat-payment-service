@@ -29,6 +29,7 @@ describe('MercadoPago', () => {
 
     describe('create', () => {
         it('should create a payment and return an ExternalPayment instance', async () => {
+            //Giver the following price
             const mockPrice = 100;
             const mockResponse = {
                 id: '123456',
@@ -45,6 +46,7 @@ describe('MercadoPago', () => {
                 create: mockCreate,
             }));
 
+            //When I create a payment on mercado pago
             const result = await mercadoPago.create(mockPrice);
 
             expect(MercadoPagoConfig).toHaveBeenCalledWith({ accessToken: mockAccessToken });
@@ -57,10 +59,16 @@ describe('MercadoPago', () => {
                 },
                 requestOptions: { idempotencyKey: 'mocked-uuid' },
             });
+
+            //Then I should receive an ExternalPayment instance
             expect(result).toBeInstanceOf(ExternalPayment);
+            //And it should have the Id equal to 123456
             expect(result.getId()).toBe('123456');
-            expect(result.getPrice()).toBe(mockPrice);
+            //And it should have the Price equal to 100
+            expect(result.getPrice()).toBe(100);
+            //And it should have the PixQrCode equal to mocked-qr-code
             expect(result.getPixQrCode()).toBe('mocked-qr-code');
+            //And ir should have the PixQrCodeBase64 equal to mocked-qr-code-base64
             expect(result.getPixQrCodeBase64()).toBe('mocked-qr-code-base64');
         });
 
