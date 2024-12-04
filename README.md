@@ -24,4 +24,8 @@ This documentation is organized as follows:
 
 Nest is [MIT licensed](LICENSE).
 
-[![Coverage Status](https://coveralls.io/repos/github/rafaelsmonte/tech-challenge-7soat-payment-service/badge.svg)](https://coveralls.io/github/rafaelsmonte/tech-challenge-7soat-payment-service)
+## Evidences
+
+![Coverage](docs/evidences/order-coverage.png)
+![Sucessful pipeline on push](docs/evidences/order-pipeline.png)
+![Sucessful pipeline on pr](docs/evidences/order-pipeline-pr.png)
